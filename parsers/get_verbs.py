@@ -1,5 +1,3 @@
-# Adjusted method to extract verbs manually by searching for verbs based on typical verb endings in Spanish
-# These endings include -ar, -er, -ir, etc.
 from collections import Counter
 import re
 import spacy
@@ -47,6 +45,7 @@ verbs = [token.lemma_.lower() for token in doc if token.pos_ == 'VERB']
 verb_freq = Counter(verbs)
 common_verbs_extracted = [word for word, count in verb_freq.items() if count > 4 and len(word) >= 3]
 
+# TODO move known verbs into separate config file
 known_verbs = ['hacer', 'hablar', 'ver', 'dar', 'querer', 'tener', 'pensar', 'preguntar', 'salir', 'entrar', 'estar', 'creer',
                'volver', 'bailar', 'necesitar']
 filtered_verbs = [verb for verb in common_verbs_extracted if verb not in known_verbs]
