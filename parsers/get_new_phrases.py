@@ -1,56 +1,36 @@
 from collections import Counter
-import re
 import spacy
 from data.words import get_known_verbs
+from data.srt import get_text_from_srt
+from conf.default import MIN_VERB_LEN
 
-# Load the file content
+# Load srt content
 file_path = 'srt/Iron.Man[2008]DvDrip-aXXo.srt'
-with open(file_path, 'r', encoding='utf-8') as file:
-    subtitle_content = file.read()
+cleaned_text = get_text_from_srt(file_path)
 
-
-# Remove the timestamps and other non-dialogue text
-def clean_subtitle_text(content):
-    content = content.replace('<i>', ' ')
-    content = content.replace('</i>', ' ')
-    # Remove subtitle index numbers (lines that are just numbers)
-    content = re.sub(r'^\d+\n', '', content, flags=re.MULTILINE)
-    # Remove timestamps and the arrow symbols
-    content = re.sub(r'\d{2}:\d{2}:\d{2},\d{3} --> \d{2}:\d{2}:\d{2},\d{3}', '', content)
-    # Replace newlines with spaces to keep sentences together
-    content = content.replace('\n', ' ')
-    # Remove multiple spaces that might result from the previous step
-    content = re.sub(r'\s+', ' ', content)
-    return content.strip()
-
-
-# Clean the content
-cleaned_text = clean_subtitle_text(subtitle_content)
-
-# Load the Spanish language model for NLP
-# python -m spacy download es_core_news_sm
-nlp = spacy.load("es_core_news_sm")
+# Load the Spanish language model for NLP (python -m spacy download es_core_news_sm)
+nlp = spacy.load('es_core_news_sm')
 
 # Process the cleaned text with NLP
 doc = nlp(cleaned_text)
-
-# Extract words and phrases (bigrams) and count their frequencies
-words = [token.text.lower() for token in doc if token.is_alpha]
-bigrams = [' '.join([doc[i].text.lower(), doc[i + 1].text.lower()]) for i in range(len(doc) - 1)
-           if doc[i].is_alpha and doc[i + 1].is_alpha]
 
 # Extract verbs from the text
 verbs = [token.lemma_.lower() for token in doc if token.pos_ == 'VERB']
 
 # Count the frequency of verbs
 verb_freq = Counter(verbs)
-common_verbs_extracted = [word for word, count in verb_freq.items() if count > 4 and len(word) >= 3]
+common_verbs_extracted = [word for word, count in verb_freq.items() if count > 4 and len(word) >= MIN_VERB_LEN]
 
 known_verbs = get_known_verbs()
 filtered_verbs = [verb for verb in common_verbs_extracted if verb not in known_verbs]
 
 print(filtered_verbs)
 exit()
+
+# Extract words and phrases (bigrams) and count their frequencies
+words = [token.text.lower() for token in doc if token.is_alpha]
+bigrams = [' '.join([doc[i].text.lower(), doc[i + 1].text.lower()]) for i in range(len(doc) - 1)
+           if doc[i].is_alpha and doc[i + 1].is_alpha]
 
 
 # Function to extract sentences containing specific verbs
