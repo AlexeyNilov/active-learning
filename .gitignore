@@ -7,4 +7,5 @@ settings.py
 rnd.py
 cache
 log.txt
-data/*
+srt/*
+conf/settings.py

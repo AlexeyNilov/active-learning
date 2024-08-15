@@ -1,9 +1,10 @@
 from collections import Counter
 import re
 import spacy
+from data.words import get_known_verbs
 
 # Load the file content
-file_path = 'data/Iron.Man[2008]DvDrip-aXXo.srt'
+file_path = 'srt/Iron.Man[2008]DvDrip-aXXo.srt'
 with open(file_path, 'r', encoding='utf-8') as file:
     subtitle_content = file.read()
 
@@ -45,9 +46,7 @@ verbs = [token.lemma_.lower() for token in doc if token.pos_ == 'VERB']
 verb_freq = Counter(verbs)
 common_verbs_extracted = [word for word, count in verb_freq.items() if count > 4 and len(word) >= 3]
 
-# TODO move known verbs into separate config file
-known_verbs = ['hacer', 'hablar', 'ver', 'dar', 'querer', 'tener', 'pensar', 'preguntar', 'salir', 'entrar', 'estar', 'creer',
-               'volver', 'bailar', 'necesitar']
+known_verbs = get_known_verbs()
 filtered_verbs = [verb for verb in common_verbs_extracted if verb not in known_verbs]
 
 print(filtered_verbs)
