@@ -5,7 +5,8 @@ from data.srt import get_text_from_srt
 from conf.default import MIN_VERB_LEN, MIN_VERB_FREQUENCY, MAX_SENTENCE_LENGTH
 
 # Load srt content
-file_path = 'srt/Iron.Man[2008]DvDrip-aXXo.srt'
+file_path = 'stories/the_lost_reliq.md'
+# file_path = 'srt/Iron.Man[2008]DvDrip-aXXo.srt'
 cleaned_text = get_text_from_srt(file_path)
 
 # Load the Spanish language model for NLP (python -m spacy download es_core_news_sm)
@@ -27,7 +28,7 @@ ignore_words = get_ignore_list()
 filtered_verbs = [verb for verb in common_verbs_extracted if verb not in known_verbs + ignore_words]
 
 print(filtered_verbs)
-exit()
+# exit()
 
 
 # Function to extract sentences containing specific verbs

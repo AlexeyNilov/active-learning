@@ -49,6 +49,8 @@
    - **Supplemental Materials:** As you become more comfortable, expand your vocabulary by watching related content (e.g., interviews with the actors, behind-the-scenes footage) or reading articles about the movie in Spanish.
    - **Thematic Focus:** Choose new movies or shows that cover different themes or settings to expand your vocabulary in various contexts.
 
+3. **Backward translation:**
+
 ---
 
 ### **Final Thoughts:**
