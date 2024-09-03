@@ -1,13 +1,14 @@
-# Active language learning
+# Active language learning strategy
 
-## Flow
+## Phase 1 'Build vocabulary'
+* Choose a movie, get subtitles
+* Get the most common verbs from the subtitles
+* Create flashcards (duocards) for unknown verbs
+* Ask duo (or any other suitable AI) to explain new words and give some examples
+* Train (do spaced repetition) with the cards
 
-### Vocabulary preparation
-
-1. Choose a movie, get subtitles
-2. Get new verbs from the subtitles
-3. Create duocards
-4. Get related phrases/sentences?
-5. Practice
-6. Watch the movie
+## Phase 2 'Active watching'
+* [optional] Get related phrases/sentences from the subtitles and practice them
+* Watch the movie
+* Shadow (repeat/act by yourself) interesting scenes/sentences
 
